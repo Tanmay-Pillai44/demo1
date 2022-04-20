@@ -1,0 +1,32 @@
+.apple-head {
+    color: red;
+}
+
+.orange-head {
+    color: orange;
+}
+
+.guava-head {
+    color: green;
+}
+
+.grapes-head {
+    color: greenyellow;
+}
+
+.banana-head {
+    color: yellow;
+}
+
+.mango-head {
+    color: #F77E41;
+}
+
+button {
+    border-radius: 50%;
+    font-size: 24px;
+    height: 36px;
+    width: 36px;
+    background-color: cyan;
+    margin: 0 5px;
+}
