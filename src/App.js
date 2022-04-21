@@ -1,36 +1,55 @@
 import './App.css';
-import React, { createContext, useState } from 'react';
-import ChildOne from './components/Context/ChildOne';
+import React from 'react';
+import RegularComponent from "./components/pureComponents/regularComponent";
+import PureComponentExample from './components/pureComponents/pureComponent';
 
-const MyName = createContext();
-export const Institute = createContext();
-export const MyCounter = createContext();
-
-function App() {
-
-  const [counter, setCounter] = useState(0);
-
-  const obj = {
-    counter,
-    handleChange: () => setCounter(counter + 1)
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      // msg: "Hello"
+      arr: [10, 20, 30]
+    }
   }
 
-  return (
-    <div className='App'>
-      <h2>App Counter: {counter}</h2>
-      <MyName.Provider value ={"Tanmay"}>
-        <Institute.Provider value ={"Prepbytes"}>
-            <MyCounter.Provider value={obj}>
-              <ChildOne />
-            </MyCounter.Provider>
-        </Institute.Provider>
-      </MyName.Provider>
-    </div>
-  );
+  componentDidMount() {
+    // setInterval(() => {
+    //   this.setState({
+    //     msg: "Hello",
+    //   })
+    // }, 2000)
+
+    // setInterval(() => {
+    //   const val = Math.round(10*Math.random())
+    //   // this.state.arr.push(val);
+    //   const updatedArr = [...this.state.arr, val];
+    //   this.setState({
+    //     arr: updatedArr,
+    //   })
+    // }, 2000)
+  }
+
+  render() {
+    console.log("Parent Component")
+    return (
+      <h2 className='App'>
+        Parent:
+        {/* <h1>Message: {this.state.msg}</h1> */}
+        {
+          this.state.arr.map((val) => (
+            <span>{`${val} `}</span>
+          ))
+        }
+
+        <RegularComponent arr={this.state.arr} />
+        <PureComponentExample arr={this.state.arr} />
+      </h2>
+    )
+  }
 }
 
 export default App;
-export { MyName };
+
 
 // for normal export import it with {} while for defult no need of {} in import.
 
