@@ -1,52 +1,36 @@
 import './App.css';
-import React from 'react';
-import RegularComponent from "./components/pureComponents/regularComponent";
-import PureComponentExample from './components/pureComponents/pureComponent';
+import React, { useState, useEffect, useCallback } from 'react';
+import ReactMemoExample from './components/MemoAndCallback/reactMemoAndCallback';
+import ControlledAndUncontrolledComponent from './components/ControlledAndUncontrolledComponents/contAndUncontComp';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // msg: "Hello"
-      arr: [10, 20, 30]
-    }
-  }
+const App = () => {
 
-  componentDidMount() {
-    // setInterval(() => {
-    //   this.setState({
-    //     msg: "Hello",
-    //   })
-    // }, 2000)
+  const [randomNumber, setRandomNumber] = useState(Math.random());
+  const [counter, setCounter] = useState(0);
 
-    // setInterval(() => {
-    //   const val = Math.round(10*Math.random())
-    //   // this.state.arr.push(val);
-    //   const updatedArr = [...this.state.arr, val];
-    //   this.setState({
-    //     arr: updatedArr,
-    //   })
-    // }, 2000)
-  }
+  const handleChange = useCallback(() => {
+    setCounter(counter + 1);
+  }, [counter]);
 
-  render() {
-    console.log("Parent Component")
-    return (
-      <h2 className='App'>
-        Parent:
-        {/* <h1>Message: {this.state.msg}</h1> */}
-        {
-          this.state.arr.map((val) => (
-            <span>{`${val} `}</span>
-          ))
-        }
+  useEffect(() => {
+    console.log("Message Stage Updated")
+  }, [randomNumber])
 
-        <RegularComponent arr={this.state.arr} />
-        <PureComponentExample arr={this.state.arr} />
-      </h2>
-    )
-  }
-}
+  useEffect(() => {
+    setInterval(() => {
+      console.log("Interval Created")
+      setRandomNumber(Math.random().toFixed(2));
+    }, 2000)
+  },[])
+
+  return (
+    <div className='App'>
+      <h2>Random Number: {randomNumber}</h2>
+      <ReactMemoExample handleChange={handleChange} counter={counter} />
+      < ControlledAndUncontrolledComponent />
+    </div>
+  );
+};
 
 export default App;
 
